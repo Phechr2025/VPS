@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+  <div class="col-12 col-lg-8">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">{{ 'แก้ไขคำสั่ง #' ~ cmd['id'] if cmd else 'เพิ่มคำสั่งใหม่' }}</h5>
+        <form method="post">
+          <div class="mb-3">
+            <label class="form-label">Trigger (ข้อความที่ให้ผู้ใช้พิมพ์)</label>
+            <input name="trigger" class="form-control" required value="{{ cmd['trigger'] if cmd else '' }}" placeholder="เช่น สวัสดี">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Response (ข้อความที่บอทจะตอบกลับ)</label>
+            <textarea name="response" class="form-control" rows="3" required placeholder="เช่น ดีจ้า! ยินดีที่ได้รู้จัก">{{ cmd['response'] if cmd else '' }}</textarea>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label">จำกัดห้อง (Channel IDs, คั่นด้วย ,)</label>
+                <input name="allowed_channels" class="form-control" value="{{ cmd['allowed_channels'] if cmd else '' }}" placeholder="เช่น 1234567890,9876543210">
+                <div class="form-text">เว้นว่าง = ใช้ได้ทุกห้อง</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label">จำกัดผู้ใช้ (User IDs, คั่นด้วย ,)</label>
+                <input name="allowed_users" class="form-control" value="{{ cmd['allowed_users'] if cmd else '' }}" placeholder="เช่น 111,222,333">
+                <div class="form-text">เว้นว่าง = ใช้ได้ทุกคน</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="enabled" name="enabled" {% if not cmd or cmd['enabled'] %}checked{% endif %}>
+            <label class="form-check-label" for="enabled">เปิดใช้งานคำสั่งนี้</label>
+          </div>
+          <button class="btn btn-primary">บันทึก</button>
+          <a href="{{ url_for('commands_list') }}" class="btn btn-secondary ms-2">ยกเลิก</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

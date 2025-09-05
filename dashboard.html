@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row g-4">
+  <div class="col-12 col-lg-6">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">สถานะบอท</h5>
+        <p class="card-text fs-5"><span class="badge bg-{{ 'success' if status=='กำลังรัน' else 'secondary' }}">{{ status }}</span></p>
+        <form method="post" action="{{ url_for('control', action='start') }}" class="d-inline">
+          <button class="btn btn-success" {% if not token_set %}disabled{% endif %}>Start</button>
+        </form>
+        <form method="post" action="{{ url_for('control', action='stop') }}" class="d-inline ms-2">
+          <button class="btn btn-warning">Stop</button>
+        </form>
+        <form method="post" action="{{ url_for('control', action='restart') }}" class="d-inline ms-2">
+          <button class="btn btn-primary" {% if not token_set %}disabled{% endif %}>Restart</button>
+        </form>
+        {% if not token_set %}
+          <div class="mt-3 alert alert-info">ยังไม่ได้ตั้งค่าโทเคนบอท ไปที่หน้า <a href="{{ url_for('settings') }}">Settings</a> เพื่อบันทึกโทเคนก่อน</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

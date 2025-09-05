@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+  <div class="col-12 col-lg-8">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">ตั้งค่าโทเคนบอท</h5>
+        <form method="post">
+          <div class="mb-3">
+            <label class="form-label">Bot Token</label>
+            <input type="password" name="bot_token" class="form-control" value="{{ token }}" placeholder="ใส่โทเคนจาก Discord Developer Portal" required>
+            <div class="form-text">จะถูกเก็บในฐานข้อมูลฝั่งเซิร์ฟเวอร์</div>
+          </div>
+          <button class="btn btn-primary">บันทึก</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
